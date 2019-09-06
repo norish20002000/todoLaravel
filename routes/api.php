@@ -5,10 +5,12 @@ Route::get('/todo', function() {
     return "/api/todo テストページ";
 });
 
-Route::get('/todo','TodoController@get');
-Route::post('/todo','TodoController@post');
-Route::delete('/todo/{id}','TodoController@delete');
-Route::put('/todo/{id}','TodoController@update');
+Route::group(["middleware" => "auth.api"], function() {
+    Route::get('/todo','TodoController@get');
+    Route::post('/todo','TodoController@post');
+    Route::delete('/todo/{id}','TodoController@delete');
+    Route::put('/todo/{id}','TodoController@update');
+});
 
 /*
 |--------------------------------------------------------------------------
